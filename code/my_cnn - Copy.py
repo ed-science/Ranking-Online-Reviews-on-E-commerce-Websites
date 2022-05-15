@@ -108,26 +108,25 @@ labels = df1['Helpfulness']
 
 ###############Load pre-trained word vector####################
 # load the whole embedding into memory
-embeddings_index = dict()
+embeddings_index = {}
 
-f = open(word2vec_model)                  
-##########    it is the gensim model to use word2vec.
+with open(word2vec_model) as f:
+    ##########    it is the gensim model to use word2vec.
 
-for line in f:
-    values = line.split()
-    #######       for splitting every terms.
-    #print( values)
-    word = values[0]
-    #######       taking 1st term. 
-    #print(word," :: ",end='')
-    coefs = asarray(values[1:], dtype='float64')
-    
-    #print(np.shape(coefs))
-    #######     taking rest terms
-    #print(coefs)
-    embeddings_index[word] = coefs
-    #######     mapping words to its vector    matrix that will be used.
-f.close()
+    for line in f:
+        values = line.split()
+        #######       for splitting every terms.
+        #print( values)
+        word = values[0]
+        #######       taking 1st term. 
+        #print(word," :: ",end='')
+        coefs = asarray(values[1:], dtype='float64')
+
+        #print(np.shape(coefs))
+        #######     taking rest terms
+        #print(coefs)
+        embeddings_index[word] = coefs
+        #######     mapping words to its vector    matrix that will be used.
 vector_length = str(np.shape(coefs))
 vector_length = vector_length[1:]
 vector_length = vector_length[:-2]

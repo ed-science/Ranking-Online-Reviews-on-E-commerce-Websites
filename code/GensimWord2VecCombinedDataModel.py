@@ -24,7 +24,7 @@ from keras.layers import Conv1D, MaxPooling1D
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import re
-import gensim 
+import gensim
 import os
 from gensim import models
 from gensim.models import Word2Vec
@@ -33,25 +33,16 @@ from gensim.models import Word2Vec
 ####################preprocessing#######################
 stop = set(stopwords.words('english'))
 stop=list(stop)
-stop_capital=[]
-for word in stop:
-    stop_capital.append( word.capitalize())
+stop_capital = [word.capitalize() for word in stop]
 file= open('CombinedDataReview.csv','r+',encoding="utf8")
 list1=file.read()
 list1=word_tokenize(list1)
 stop_all = stop + stop_capital
-filtered = []
-for word in list1:
-    if word not in stop_all:
-        filtered.append(word)
+filtered = [word for word in list1 if word not in stop_all]
 stoplist =set("""M'lady M'lord ma'am Mr. Mrs. Smt. Dr. Er. e.g""".split() )
 filtered= [word for word in  filtered if word not in stoplist]
-filtered_alphanumeric = []
-for word in filtered:
-    if(word.isalnum()):
-        filtered_alphanumeric.append(word)
-final_list_of_words = []
-final_list_of_words.append(filtered_alphanumeric)
+filtered_alphanumeric = [word for word in filtered if (word.isalnum())]
+final_list_of_words = [filtered_alphanumeric]
 print(final_list_of_words)
 
 
